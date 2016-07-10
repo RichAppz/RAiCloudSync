@@ -47,7 +47,7 @@ class RAiCloudSync {
     
     
     //================================================================================
-    // MARK: Start Service
+    // MARK: Start Functions
     //================================================================================
     
     /// Start the iCloudSync with the prefix that you would like to listen for
@@ -95,7 +95,7 @@ class RAiCloudSync {
     
     
     //================================================================================
-    // MARK: Helpers
+    // MARK: Private Helpers
     //================================================================================
     
     @objc private static func updateToiCloud(notification: NSNotification) {
