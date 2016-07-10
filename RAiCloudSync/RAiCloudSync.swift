@@ -26,7 +26,7 @@
 
 import UIKit
 
-public let raCloudSyncNotification: String = "raiCloudSyncNotification"
+public let RAiCloudSyncNotification: String = "raiCloudSyncNotification"
 
 class RAiCloudSync {
     
@@ -119,7 +119,7 @@ class RAiCloudSync {
                 NSUserDefaults.standardUserDefaults().setObject(value, forKey: key)
             }
         }
-        NSNotificationCenter.defaultCenter().postNotificationName(raCloudSyncNotification, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(RAiCloudSyncNotification, object: nil)
         
         setListenerForNotificationChange()
     }
