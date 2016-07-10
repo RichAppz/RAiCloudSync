@@ -24,7 +24,7 @@ To listen for changes in the sync use `raiCloudSyncNotification`, eg:
 
 ####Adding an additional key
 
-	RAiCloudSync.remove(key: "key2")
+	RAiCloudSync.add(key: "key2")
 		
 ####Remove a key
 
