@@ -10,13 +10,14 @@ This is a clean and useful solution to storing `NSUserDefaults` in iCloud, addin
 2. Add to start `RAiCloudSync.start(withKeys: ["key1", "key2", "key3"])`
 3. Use `NSUserDefaults` as normal
 
-To listen for changes in the sync use `raiCloudSyncNotification`, eg:
-	
-	NSNotificationCenter.defaultCenter().addObserver(
-            self,
-            selector: <method to call>,
-            name: RAiCloudSyncNotification,
-            object: nil)
+To listen for changes in the sync use `RAiCloudSyncNotification`, eg:
+
+	NotificationCenter.default.addObserver(
+		self,
+		selector: <method to call>,
+		name: RAiCloudSyncNotification,
+		object: nil
+	)
 
 ####Start
 
@@ -25,11 +26,11 @@ To listen for changes in the sync use `raiCloudSyncNotification`, eg:
 ####Adding an additional key
 
 	RAiCloudSync.add(key: "key2")
-		
+
 ####Remove a key
 
 	RAiCloudSync.remove(key: "key2")
-	
+
 ####Stop
 
 	RAiCloudSync.stop()
