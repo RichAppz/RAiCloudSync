@@ -2,7 +2,7 @@
 
 ##What is the purpose?
 
-This is a clean and useful solution to storing `NSUserDefaults` in iCloud, adding keys to the manager will set up a listener for both directions and let you know if there have been any changes.
+This is a clean and useful solution to storing `UserDefaults` in iCloud, adding keys to the manager will set up a listener for both directions and let you know if there have been any changes.
 
 ##Instructions
 
