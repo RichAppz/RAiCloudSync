@@ -29,52 +29,52 @@ import UIKit
 public let RAiCloudSyncNotification = Notification.Name(rawValue: "com.richappz.cloudsync.notification")
 
 class RAiCloudSync {
-    
+
     //================================================================================
     // MARK: Variables
     //================================================================================
-    
+
     var keys        = [String]()
     var isSyncing   = false
 
     //================================================================================
     // MARK: Singleton
     //================================================================================
-    
+
     static let manager = RAiCloudSync()
     private init() {}
 
     //================================================================================
     // MARK: Start Functions
     //================================================================================
-    
+
     /// Start the iCloudSync with the prefix that you would like to listen for
     /// :params: keys: [String] value of the keys required
     internal static func start(withKeys keys: [String]) {
         manager.keys        = keys
         manager.isSyncing   = true
-        
+
         // Set up notifiers for iCloudSync
         setListenerFromCloud()
         setListenerForNotificationChange()
-        
+
         let cloudStorage = NSUbiquitousKeyValueStore.default()
         let dict = cloudStorage.dictionaryRepresentation
         for (key, value) in dict {
             if manager.keys.contains(key) {
                 UserDefaults.standard.set(value, forKey: key)
             }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: RAiCloudSyncNotification), object: nil)
+            NotificationCenter.default.post(name: RAiCloudSyncNotification, object: nil)
         }
     }
-    
+
     /// Remove a key stored in the manager
     /// :params: key: String value of the key to be removed
     internal static func remove(key: String) {
         manager.keys.removeObject(object: key)
         if manager.keys.count == 0 { removeAllObservers() }
     }
-    
+
     /// Listen for a new key
     /// :params: key: String value of the key to be added
     internal static func add(key: String) {
@@ -84,7 +84,7 @@ class RAiCloudSync {
             setListenerForNotificationChange()
         }
     }
-    
+
     /// Stops and resets the service
     internal static func stop() {
         manager.keys        = []
@@ -95,7 +95,7 @@ class RAiCloudSync {
     //================================================================================
     // MARK: Private Helpers
     //================================================================================
-    
+
     private static func setListenerFromCloud() {
         NotificationCenter.default.addObserver(
             forName: NSUbiquitousKeyValueStore.didChangeExternallyNotification,
@@ -112,11 +112,11 @@ class RAiCloudSync {
                     }
                 }
 
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: RAiCloudSyncNotification), object: nil)
+                NotificationCenter.default.post(name: RAiCloudSyncNotification, object: nil)
                 setListenerForNotificationChange()
         })
     }
-    
+
     private static func setListenerForNotificationChange() {
         NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: nil, using: { notification in
             let dict = UserDefaults.standard.dictionaryRepresentation()
@@ -129,17 +129,17 @@ class RAiCloudSync {
             }
         })
     }
-    
+
     //================================================================================
     // MARK: Deinit
     //================================================================================
-    
+
     private static func removeAllObservers() {
         manager.isSyncing = false
         NotificationCenter.default.removeObserver(self, name: NSUbiquitousKeyValueStore.didChangeExternallyNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UserDefaults.didChangeNotification, object: nil)
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSUbiquitousKeyValueStore.didChangeExternallyNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UserDefaults.didChangeNotification, object: nil)
